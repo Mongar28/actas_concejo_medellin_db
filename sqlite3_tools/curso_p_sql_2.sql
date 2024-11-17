@@ -1,0 +1,78 @@
+CREATE TABLE STUDENTS (
+  STUDENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  FIRST_NAME VARCHAR(50),
+  LAST_NAME VARCHAR(50),
+  AGE INT,
+  EMAIL VARCHAR(100),
+  LOAD_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UP_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE INSTRUCTORS (
+  INSTRUCTOR_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  FIRST_NAME VARCHAR(50),
+  LAST_NAME VARCHAR(50),
+  AGE INT,
+  EMAIL VARCHAR(100),
+  LOAD_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UPDATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE COURSES (
+  COURSE_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  COURSE_NAME VARCHAR(100),
+  DESCRIPTION TEXT,
+  INSTRUCTOR_ID INTEGER,
+  DURATIONS_HOURS INTEGER,
+  LOAD_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UPDATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(INSTRUCTOR_ID) REFERENCES INSTRUCTORS(INSTRUCTOR_ID)
+);
+
+CREATE TABLE STUDENT_COURSE (
+  STUDENT_COURSE_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  STUDENT_ID INTEGER,
+  COURSE_ID INTEGER,
+  ENROLLMENT_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  LOAD_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UPDATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(STUDENT_ID) REFERENCES STUDENTS(STUDENT_ID)
+);
+
+INSERT INTO COURSES (COURSE_NAME, DESCRIPTION, INSTRUCTOR_ID, DURATIONS_HOURS)
+VALUES 
+('Introducción a Python', 'Curso básico de programación en Python', 1, 40),
+('Fundamentos de SQL', 'Curso de introducción a bases de datos y SQL', 2, 30),
+('Ciencia de Datos', 'Principios y aplicaciones de la ciencia de datos', 3, 50),
+('Machine Learning', 'Curso de introducción al machine learning', 4, 35),
+('Desarrollo Web', 'Curso de desarrollo web con HTML, CSS y JavaScript', 5, 45);
+
+INSERT INTO STUDENTS (FIRST_NAME, LAST_NAME, AGE, EMAIL)
+VALUES 
+('Juan', 'Pérez', 20, 'juan.perez@example.com'),
+('María', 'García', 22, 'maria.garcia@example.com'),
+('Carlos', 'Hernández', 23, 'carlos.hernandez@example.com'),
+('Ana', 'López', 21, 'ana.lopez@example.com'),
+('Luis', 'Martínez', 24, 'luis.martinez@example.com');
+
+INSERT INTO INSTRUCTORS (FIRST_NAME, LAST_NAME, AGE, EMAIL)
+VALUES 
+('Pedro', 'Ramírez', 45, 'pedro.ramirez@example.com'),
+('Sofía', 'Fernández', 38, 'sofia.fernandez@example.com'),
+('Miguel', 'Sánchez', 50, 'miguel.sanchez@example.com'),
+('Laura', 'Torres', 33, 'laura.torres@example.com'),
+('Javier', 'Vargas', 41, 'javier.vargas@example.com');
+
+INSERT INTO STUDENT_COURSE (STUDENT_ID, COURSE_ID, ENROLLMENT_DATE)
+VALUES 
+(1, 1, '2023-01-15 10:00:00'),
+(2, 2, '2023-02-20 12:00:00'),
+(3, 3, '2023-03-10 14:00:00'),
+(4, 4, '2023-04-05 16:00:00'),
+(5, 5, '2023-05-25 18:00:00'),
+(1, 3, '2023-06-30 09:00:00'),
+(2, 4, '2023-07-15 11:00:00'),
+(3, 5, '2023-08-20 13:00:00'),
+(4, 1, '2023-09-25 15:00:00'),
+(5, 2, '2023-10-30 17:00:00');
+
